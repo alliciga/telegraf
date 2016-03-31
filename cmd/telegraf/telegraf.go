@@ -38,7 +38,7 @@ var fOutputFilters = flag.String("output-filter", "",
 var fOutputList = flag.Bool("output-list", false,
 	"print available output plugins.")
 var fUsage = flag.String("usage", "",
-	"print usage for a plugin, ie, 'telegraf -usage mysql'")
+	"print usage for a plugin, ie, 'elfie -usage mysql'")
 var fInputFiltersLegacy = flag.String("filter", "",
 	"filter the inputs to enable, separator is :")
 var fOutputFiltersLegacy = flag.String("outputfilter", "",
@@ -50,11 +50,11 @@ var fConfigDirectoryLegacy = flag.String("configdirectory", "",
 //	-ldflags "-X main.Version=`git describe --always --tags`"
 var Version string
 
-const usage = `Telegraf, The plugin-driven server agent for collecting and reporting metrics.
+const usage = `Elfie, The plugin-driven server agent for collecting metrics.
 
 Usage:
 
-  telegraf <flags>
+  elfie <flags>
 
 The flags are:
 
@@ -66,27 +66,27 @@ The flags are:
   -input-list        print all the plugins inputs
   -output-filter     filter the output plugins to enable, separator is :
   -output-list       print all the available outputs
-  -usage             print usage for a plugin, ie, 'telegraf -usage mysql'
+  -usage             print usage for a plugin, ie, 'elfie -usage mysql'
   -debug             print metrics as they're generated to stdout
   -quiet             run in quiet mode
   -version           print the version to stdout
 
 Examples:
 
-  # generate a telegraf config file:
-  telegraf -sample-config > telegraf.conf
+  # generate a config file:
+  elfie -sample-config > elfie.conf
 
   # generate config with only cpu input & influxdb output plugins defined
-  telegraf -sample-config -input-filter cpu -output-filter influxdb
+  elfie -sample-config -input-filter cpu -output-filter influxdb
 
-  # run a single telegraf collection, outputing metrics to stdout
-  telegraf -config telegraf.conf -test
+  # run a single elfie collection, outputing metrics to stdout
+  elfie -config elfie.conf -test
 
-  # run telegraf with all plugins defined in config file
-  telegraf -config telegraf.conf
+  # run elfie with all plugins defined in config file
+  elfie -config elfie.conf
 
-  # run telegraf, enabling the cpu & memory input, and influxdb output plugins
-  telegraf -config telegraf.conf -input-filter cpu:mem -output-filter influxdb
+  # run elfie, enabling the cpu & memory input, and influxdb output plugins
+  elfie -config elfie.conf -input-filter cpu:mem -output-filter influxdb
 `
 
 func main() {
@@ -184,7 +184,7 @@ func main() {
 				log.Fatal(err)
 			}
 		} else {
-			fmt.Println("You must specify a config file. See telegraf --help")
+			fmt.Println("You must specify a config file. See elfie --help")
 			os.Exit(1)
 		}
 

@@ -7,10 +7,10 @@ PATH := $(subst :,/bin:,$(GOPATH))/bin:$(PATH)
 endif
 
 # Standard Telegraf build
-default: prepare build
+default: build
 
 # Windows build
-windows: prepare-windows build-windows
+windows: build-windows
 
 # Only run the build (no dependency grabbing)
 build:
@@ -26,23 +26,9 @@ build-for-docker:
 					"-s -X main.Version=$(VERSION)" \
 					./cmd/telegraf/telegraf.go
 
-# Build with race detector
-dev: prepare
-	go build -race -ldflags "-X main.Version=$(VERSION)" ./...
-
 # run package script
 package:
 	./scripts/build.py --package --version="$(VERSION)" --platform=linux --arch=all --upload
-
-# Get dependencies and use gdm to checkout changesets
-prepare:
-	go get github.com/sparrc/gdm
-	gdm restore
-
-# Use the windows godeps file to prepare dependencies
-prepare-windows:
-	go get github.com/sparrc/gdm
-	gdm restore -f Godeps_windows
 
 # Run all docker containers necessary for unit tests
 docker-run:
